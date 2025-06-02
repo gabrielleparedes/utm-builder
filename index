@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UTM Builder Tool</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 2rem;
+      background: #f4f4f4;
+      color: #333;
+    }
+    h1 {
+      text-align: center;
+      color: #007acc;
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+      font-weight: bold;
+    }
+    input, button {
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+      width: 100%;
+      max-width: 600px;
+      display: block;
+    }
+    #result {
+      margin-top: 1.5rem;
+      background: #eef;
+      padding: 1rem;
+      word-wrap: break-word;
+    }
+  </style>
+</head>
+<body>
+  <h1>UTM Builder Tool</h1>
+
+  <label for="url">Website URL:</label>
+  <input type="text" id="url" placeholder="https://example.com">
+
+  <label for="source">Campaign Source (utm_source):</label>
+  <input type="text" id="source" placeholder="google">
+
+  <label for="medium">Campaign Medium (utm_medium):</label>
+  <input type="text" id="medium" placeholder="cpc">
+
+  <label for="campaign">Campaign Name (utm_campaign):</label>
+  <input type="text" id="campaign" placeholder="spring_sale">
+
+  <label for="term">Campaign Term (utm_term):</label>
+  <input type="text" id="term" placeholder="shoes">
+
+  <label for="content">Campaign Content (utm_content):</label>
+  <input type="text" id="content" placeholder="ad1">
+
+  <button onclick="buildUTM()">Generate UTM URL</button>
+
+  <div id="result"></div>
+
+  <script>
+    function buildUTM() {
+      const url = document.getElementById('url').value;
+      const source = document.getElementById('source').value;
+      const medium = document.getElementById('medium').value;
+      const campaign = document.getElementById('campaign').value;
+      const term = document.getElementById('term').value;
+      const content = document.getElementById('content').value;
+
+      try {
+        let utmUrl = new URL(url);
+        if (source) utmUrl.searchParams.append('utm_source', source);
+        if (medium) utmUrl.searchParams.append('utm_medium', medium);
+        if (campaign) utmUrl.searchParams.append('utm_campaign', campaign);
+        if (term) utmUrl.searchParams.append('utm_term', term);
+        if (content) utmUrl.searchParams.append('utm_content', content);
+
+        document.getElementById('result').innerText = utmUrl.toString();
+      } catch (error) {
+        document.getElementById('result').innerText = 'Please enter a valid URL.';
+      }
+    }
+  </script>
+</body>
+</html>
